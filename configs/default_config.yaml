@@ -27,6 +27,9 @@ model:
 # Generation Configuration
 generation:
   # List of temperatures for multi-temperature analysis
+  # NOTE: HalluField formulas require at minimum [1.0, 1.5, 2.0]
+  # HalluFieldSE (with semantic entropy) also requires 2.5
+  # These are the temperatures used in the paper
   temperatures: [1.0, 1.5, 2.0, 2.5, 3.0]
   
   # Number of responses to generate per sample
