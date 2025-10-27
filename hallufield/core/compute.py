@@ -259,15 +259,24 @@ class HalluFieldComputer:
         The HalluField score combines energy and entropy variations across
         temperatures to detect semantic instability.
         
+        This implementation uses the exact formulas from the paper:
+        - "default" corresponds to "HalluField-B" from the paper
+        - "with_semantic_entropy" corresponds to "HalluField-Sem-F12E" from the paper
+        
         Args:
             df_merged: DataFrame with metrics from multiple temperatures
             formula: Formula type ('default' or 'with_semantic_entropy')
             
         Returns:
             Series with HalluField scores
+            
+        Note:
+            These formulas require temperatures 1.0, 1.5, and 2.0 at minimum.
+            The 'with_semantic_entropy' formula also requires temperature 2.5.
         """
         if formula == "default":
-            # Base formula: weighted combination of energy and entropy changes
+            # HalluField-B: Best performing formula without semantic entropy
+            # From paper experiments, this formula achieved the best AUC
             score = (
                 1.5 * df_merged["Base Energy 1.5"] +
                 2.0 * df_merged["Base Energy 2.0"] +
@@ -276,7 +285,8 @@ class HalluFieldComputer:
             )
         
         elif formula == "with_semantic_entropy":
-            # Enhanced formula including semantic entropy
+            # HalluField-Sem-F12E: Best performing formula with semantic entropy
+            # This is the full HalluField formula reported in the paper
             score = (
                 0.4 * (
                     2.0 * df_merged["Base Energy 2.0"] +
@@ -474,7 +484,9 @@ class HalluFieldComputer:
         # Restore labels
         df_merged["Label"] = df_merged["Item ID"].map(label_series)
         
-        # Compute HalluField scores
+        # Compute HalluField scores using the exact formulas from the paper
+        # "HalluField" corresponds to "HalluField-B" from paper (best without semantic entropy)
+        # "HalluFieldSE" corresponds to "HalluField-Sem-F12E" from paper (best with semantic entropy)
         df_merged["HalluField"] = self.compute_hallufield_score(df_merged, "default")
         df_merged["HalluFieldSE"] = self.compute_hallufield_score(df_merged, "with_semantic_entropy")
         
