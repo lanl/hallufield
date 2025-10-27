@@ -234,6 +234,29 @@ datasets:
     path: "trivia_qa"
     use_context: false
 ```
+### HalluField Score Formulas
+
+The package implements two main HalluField formulas, selected as best-performing from extensive experiments:
+
+**HalluField (default)** - Best formula without semantic entropy:
+```
+HalluField = 1.5×E₁.₅ + 2×E₂.₀ + (ΔP₁.₀ + ΔH₁.₀) + (ΔP₁.₅/2.25 + ΔH₁.₅/1.5)
+```
+
+**HalluFieldSE** - Best formula with semantic entropy:
+```
+HalluFieldSE = 0.4×(2×E₂.₀ + 1.5×E₁.₅ + E₁.₀) 
+             + 0.6×[(ΔP₁.₀ + ΔH₁.₀) + (ΔP₁.₅/2.25 + ΔH₁.₅/1.5) + (ΔP₂.₀/4 + ΔH₂.₀/2)]
+             + 2.5×SE₁.₀
+```
+
+Where:
+- `Eₜ` = Base Energy at temperature T
+- `ΔPₜ` = Change in Potential at temperature T
+- `ΔHₜ` = Change in Entropy at temperature T
+- `SEₜ` = Semantic Entropy at temperature T
+
+**Note**: These formulas require data generated at temperatures 1.0, 1.5, 2.0 (and 2.5 for HalluFieldSE).
 
 ## 🤖 Supported Models
 
