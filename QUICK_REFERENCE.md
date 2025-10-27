@@ -151,11 +151,15 @@ specific_indices = [0, 10, 20, 30, 40]
 
 ### Available Metrics
 
-- `HalluField`: Main score (default formula)
-- `HalluFieldSE`: Score with semantic entropy
+- `HalluField`: Main score (corresponds to "HalluField-B" from paper - best without semantic entropy)
+- `HalluFieldSE`: Score with semantic entropy (corresponds to "HalluField-Sem-F12E" from paper)
 - `Base Energy X`: Energy at temperature X
 - `Δ1st Potential X`: Potential change at temperature X
 - `Semantic Entropy X`: Semantic entropy at temperature X
+
+**Required Temperatures:**
+- `HalluField` requires: 1.0, 1.5, 2.0
+- `HalluFieldSE` requires: 1.0, 1.5, 2.0, 2.5
 
 ### Access Specific Metrics
 
