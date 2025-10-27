@@ -2,7 +2,8 @@
 
 [![arXiv](https://img.shields.io/badge/arXiv-2509.10753-b31b1b.svg)](https://arxiv.org/abs/2509.10753)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 
 **HalluField** is a novel field-theoretic approach for detecting hallucinations in Large Language Models (LLMs). Inspired by thermodynamics, HalluField models an LLM's response as a collection of discrete likelihood token paths, each associated with energy and entropy, to quantify semantic stability and detect hallucinations.
 
