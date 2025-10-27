@@ -1,0 +1,164 @@
+# HalluField Configuration File
+# This file contains default configuration for HalluField experiments
+
+# Model Configuration
+model:
+  # Model identifier from HuggingFace
+  name: "meta-llama/Llama-2-7b-hf"
+  
+  # Maximum number of new tokens to generate
+  max_new_tokens: 100
+  
+  # Device to run model on ('cuda', 'cpu', or 'auto')
+  device: "cuda"
+  
+  # Use 8-bit quantization for memory efficiency
+  load_in_8bit: false
+  
+  # Use 4-bit quantization (requires bitsandbytes)
+  load_in_4bit: false
+  
+  # Device map for multi-GPU ('auto' for automatic distribution)
+  device_map: null
+  
+  # Trust remote code (required for some models)
+  trust_remote_code: false
+
+# Generation Configuration
+generation:
+  # List of temperatures for multi-temperature analysis
+  temperatures: [1.0, 1.5, 2.0, 2.5, 3.0]
+  
+  # Number of responses to generate per sample
+  num_generations: 10
+  
+  # Number of few-shot examples in prompt
+  num_few_shot: 2
+  
+  # Use context in prompts (dataset-specific)
+  use_context: true
+  
+  # Compute P(True) uncertainty metric
+  compute_p_true: false
+  
+  # Number of few-shot examples for P(True)
+  p_true_num_fewshot: 20
+
+# Dataset Configuration
+datasets:
+  squad:
+    path: "squad"
+    use_context: true
+    answerable_only: true
+    num_few_shot: 2
+    
+  trivia_qa:
+    path: "trivia_qa"
+    use_context: false
+    answerable_only: false
+    num_few_shot: 4
+    
+  nq:
+    path: "nq_open"
+    use_context: false
+    answerable_only: false
+    num_few_shot: 4
+    
+  bioasq:
+    path: "bioasq"
+    use_context: true
+    answerable_only: true
+    num_few_shot: 2
+    
+  svamp:
+    path: "svamp"
+    use_context: true
+    answerable_only: true
+    num_few_shot: 2
+
+# Computation Configuration
+computation:
+  # Entailment model for semantic clustering
+  entailment_model: "deberta"
+  
+  # Cache directory for entailment predictions
+  cache_dir: "./cache"
+  
+  # Strict entailment (both directions required)
+  strict_entailment: true
+  
+  # Temperature weights for HalluField computation
+  weights: [1.0, 1.5, 2.0, 2.5, 3.0]
+  
+  # HalluField formula ('default' or 'with_semantic_entropy')
+  formula: "default"
+
+# Paths Configuration
+paths:
+  # Directory for generated data
+  data_dir: "./gendata"
+  
+  # Directory for results and metrics
+  output_dir: "./results"
+  
+  # Directory for model cache
+  model_cache_dir: "./models"
+  
+  # Directory for dataset cache
+  dataset_cache_dir: "./datasets"
+
+# Experiment Configuration
+experiment:
+  # Number of samples to process
+  num_samples: 100
+  
+  # Random seed for reproducibility
+  random_seed: 42
+  
+  # Batch size for processing
+  batch_size: 1
+  
+  # Maximum number of items to process in computation
+  max_items: 10000
+
+# Logging Configuration
+logging:
+  # Logging level ('DEBUG', 'INFO', 'WARNING', 'ERROR')
+  level: "INFO"
+  
+  # Log to file
+  log_to_file: false
+  
+  # Log file path
+  log_file: "./logs/hallufield.log"
+
+# Metric Configuration
+metrics:
+  # Metric type for accuracy evaluation
+  accuracy_metric: "squad_v2"
+  
+  # Threshold for F1 score in squad_v2
+  f1_threshold: 50.0
+
+# Advanced Options
+advanced:
+  # Enable mixed precision training
+  fp16: false
+  
+  # Enable TensorFloat-32
+  tf32: true
+  
+  # Gradient accumulation steps
+  gradient_accumulation_steps: 1
+  
+  # Use gradient checkpointing
+  gradient_checkpointing: false
+  
+  # Maximum batch size for entailment model
+  entailment_batch_size: 32
+  
+  # Enable caching for all computations
+  enable_cache: true
+  
+  # Save intermediate results
+  save_intermediate: true
