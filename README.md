@@ -7,6 +7,9 @@
 
 **HalluField** is a novel field-theoretic approach for detecting hallucinations in Large Language Models (LLMs). Inspired by thermodynamics, HalluField models an LLM's response as a collection of discrete likelihood token paths, each associated with energy and entropy, to quantify semantic stability and detect hallucinations.
 
+![EPBDxBERT Framework](docs/hallufield_intuition.png)
+*Figure 1: Overview of the proposed Hallufield framework*
+
 ## 🌟 Key Features
 
 - **Physics-Inspired**: Grounded in thermodynamic principles, drawing analogies to the first law of thermodynamics
